@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+  <h2>Dashboard</h2>
+  <p id="welcome"></p>
+
+  <form onsubmit="return submitMessage(event)">
+    <input type="text" id="message" placeholder="Type something..." required />
+    <button type="submit">Post</button>
+  </form>
+
+  <ul id="messages"></ul>
+
+  <button onclick="logout()">Logout</button>
+  <script src="script.js"></script>
+</body>
+</html>
