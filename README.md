@@ -1,0 +1,1 @@
+# FritzCy.github.io
