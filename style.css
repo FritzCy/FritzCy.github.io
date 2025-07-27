@@ -1,0 +1,23 @@
+body {
+  font-family: sans-serif;
+  max-width: 500px;
+  margin: auto;
+  padding: 2em;
+}
+input, button {
+  display: block;
+  width: 100%;
+  margin: 1em 0;
+  padding: 0.5em;
+}
+.error {
+  color: red;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+small {
+  font-size: 0.75em;
+  color: gray;
+}
