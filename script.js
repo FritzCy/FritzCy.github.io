@@ -1,13 +1,14 @@
 const supabaseUrl = "https://rktrdjnqbatijoozvuae.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJrdHJkam5xYmF0aWpvb3p2dWFlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM1ODQ0NTYsImV4cCI6MjA2OTE2MDQ1Nn0.EGpWSvoyB2GXZaZfUZDtiEzhmQk4LtCY5VqE6cmUEfI";
-const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 // Auth functions
 async function login(e) {
   e.preventDefault();
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
   if (error) {
     document.getElementById("error").textContent = error.message;
   } else {
@@ -18,13 +19,13 @@ async function login(e) {
 async function signup() {
   const email = prompt("Email?");
   const password = prompt("Password?");
-  const { error } = await supabase.auth.signUp({ email, password });
+  const { error } = await supabaseClient.auth.signUp({ email, password });
   if (error) alert(error.message);
   else alert("Signup successful! Check your email.");
 }
 
 async function logout() {
-  await supabase.auth.signOut();
+  await supabaseClient.auth.signOut();
   window.location.href = "login.html";
 }
 
@@ -32,7 +33,7 @@ async function logout() {
 window.onload = async () => {
   const {
     data: { session },
-  } = await supabase.auth.getSession();
+  } = await supabaseClient.auth.getSession();
 
   if (!session) {
     const onLoginPage = location.pathname.includes("login.html");
@@ -55,9 +56,9 @@ async function submitMessage(e) {
 
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabaseClient.auth.getUser();
 
-  const { error } = await supabase.from("messages").insert({
+  const { error } = await supabaseClient.from("messages").insert({
     content: text,
     user_id: user.id,
   });
@@ -71,7 +72,7 @@ async function loadMessages() {
   const list = document.getElementById("messages");
   if (!list) return;
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from("messages")
     .select("*")
     .order("created_at", { ascending: false })
